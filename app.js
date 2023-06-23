@@ -4,6 +4,7 @@ const userRoutes = require('./routes/user');
 const sauceRoutes = require('./routes/sauce');
 const path = require('path');
 require('dotenv').config()
+const helmet = require('helmet');
 
 mongoose.connect(process.env.URLDB,
   { useNewUrlParser: true,
@@ -25,5 +26,6 @@ app.use((req, res, next) => {
 app.use('/api/auth', userRoutes);
 app.use('/api/sauces', sauceRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use(helmet());
 
 module.exports = app;
